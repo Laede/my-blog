@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+    {{ include('navbar/navbar.html.twig') }}
+    {{ include('header/header.html.twig') }}
+    <div class="container" id="top">
+        <div class="col-md-6 col-sm-12">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            {% endif %}
+            <h1>Login</h1>
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button class="btn btn-success" formnovalidate>Login</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+    {{ include('footer/footer.html.twig') }}
+{% endblock %}

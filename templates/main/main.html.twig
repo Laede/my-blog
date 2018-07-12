@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="post-preview pagerfanta">
+                {% if  my_pager.currentPageResults| length > 0 %}
+                    {% for post in my_pager.currentPageResults %}
+                    <div class="post-preview">
+                        <a href="{{ path('post_show',{'id': post.id }) }}">
+                            <h2 class="post-title">
+                                {{ post.title }}
+                            </h2>
+                            <h3 class="post-subtitle">
+                                {{ post.postBody|raw }}
+                            </h3>
+                        </a>
+                        <p class="post-meta">Posted by
+                            <a href="#">{{ post.author.username }}</a>
+                        </p>
+                    </div>
+                    <hr>
+                    {% endfor %}
+                    {{ pagerfanta(my_pager, 'twitter_bootstrap4', { 'omitFirstPage': true}) }}
+                {% else %}
+                    <div class="post-preview">
+                        <h2 class="post-title">Sorry,we found nothing...</h2>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <hr>
+</div>

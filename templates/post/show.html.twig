@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Post{% endblock %}
+
+{% block body %}
+    <header class="masthead" style="background-image: url('img/post-bg.jpg')">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="post-heading">
+                        <h1>{{ post.title }}</h1>
+                        <span class="meta">Posted by
+                            <a href="#">{{ post.author.username }}</a>
+                        </span>
+                    </div>
+                    <span>
+                        {% for tags in post.label %}
+                            {{ tags.name }}
+                        {% endfor %}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <p>{{ post.postBody|raw }}</p>
+                    {% if is_granted('ROLE_USER') %}
+                        <div class="row">
+                            <a class="btn btn-primary" href="{{ path('post_edit', {'id': post.id}) }}">Edit</a>
+                            {{ include('post/_delete_form.html.twig') }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+    {{ include('footer/_postFooter.html.twig') }}
+{% endblock %}
